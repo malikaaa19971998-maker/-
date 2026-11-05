@@ -1,3 +1,24 @@
 Фото 1 couple-main.jpg
 Фото 2 ring-moment.jpg
 Мот — Свадебная mot-svadebnaya.mp3
+function openInvitation() {
+  if (opened) return;
+
+  opened = true;
+
+  // Музыка запускается сразу после нажатия
+  audio.play().catch(error => {
+    console.log("Ошибка воспроизведения:", error);
+  });
+
+  envelope.classList.add("open");
+
+  setTimeout(() => {
+    intro.classList.add("hide");
+  }, 1200);
+}<img src="assets/ring-moment.jpg">
+
+<audio id="weddingMusic" loop>
+  <source src="assets/mot-svadebnaya.mp3"
+          type="audio/mpeg">
+</audio>
