@@ -1,0 +1,716 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Амир & Амина | Wedding Invitation</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --gold: #b99a61;
+  --light-gold: #e8d7b5;
+  --ivory: #faf7f0;
+  --text: #796747;
+}
+
+body {
+  background: var(--ivory);
+  color: var(--text);
+  font-family: Georgia, serif;
+  overflow-x: hidden;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* LANGUAGE */
+
+.language {
+  position: fixed;
+  z-index: 50;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  border: 1px solid var(--gold);
+  border-radius: 30px;
+  overflow: hidden;
+  background: #fffaf0;
+}
+
+.language button {
+  border: none;
+  padding: 10px 15px;
+  background: transparent;
+  color: var(--gold);
+}
+
+.language button.active {
+  background: var(--gold);
+  color: white;
+}
+
+/* MUSIC */
+
+.music {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 50;
+  padding: 11px 17px;
+  border: 1px solid var(--gold);
+  border-radius: 30px;
+  background: #fffaf0;
+  color: var(--gold);
+}
+
+/* ENVELOPE */
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    #fffdf8,
+    #eaddc5
+  );
+  transition: opacity 1s, visibility 1s;
+}
+
+#intro.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.intro-content {
+  width: 90%;
+  max-width: 400px;
+}
+
+.intro-title {
+  color: var(--gold);
+  letter-spacing: 5px;
+  font-size: 13px;
+  margin-bottom: 40px;
+}
+
+.envelope {
+  width: 290px;
+  height: 190px;
+  margin: auto;
+  position: relative;
+  cursor: pointer;
+  perspective: 800px;
+}
+
+.env-back {
+  position: absolute;
+  inset: 0;
+  background: #e7d8bb;
+  border: 1px solid #c6aa76;
+}
+
+.env-paper {
+  position: absolute;
+  left: 15px;
+  right: 15px;
+  top: 15px;
+  height: 160px;
+  background: #fffdf7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+  color: var(--gold);
+  transition: transform 1s;
+}
+
+.env-front {
+  position: absolute;
+  inset: 0;
+  background: #eadcc2;
+  clip-path: polygon(
+    0 0, 50% 60%, 100% 0,
+    100% 100%, 0 100%
+  );
+}
+
+.env-flap {
+  position: absolute;
+  inset: 0;
+  background: #f5ead4;
+  clip-path: polygon(0 0, 100% 0, 50% 60%);
+  transform-origin: top;
+  transition: transform 1s;
+}
+
+.seal {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: radial-gradient(#e7d2a6, #a88951);
+  color: white;
+  display: grid;
+  place-items: center;
+  font-size: 23px;
+  transition: opacity .5s;
+}
+
+.envelope.open .env-flap {
+  transform: rotateX(180deg);
+}
+
+.envelope.open .env-paper {
+  transform: translateY(-65px);
+}
+
+.envelope.open .seal {
+  opacity: 0;
+}
+
+.open-button {
+  margin-top: 35px;
+  padding: 14px 30px;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* MAIN */
+
+main {
+  max-width: 850px;
+  margin: auto;
+  background: #fffdf9;
+}
+
+.hero {
+  height: 720px;
+  min-height: 85vh;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,.65),
+      transparent 70%
+    ),
+    url("assets/couple-main.jpg")
+    center 40% / cover no-repeat;
+}
+
+.hero-content {
+  padding: 70px 15px;
+  width: 100%;
+}
+
+.hero-small {
+  font-size: 11px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #f1dfbd;
+}
+
+.hero h1 {
+  font-size: clamp(48px, 10vw, 85px);
+  font-weight: normal;
+  margin: 25px 0;
+}
+
+.hero-date {
+  font-size: 21px;
+  letter-spacing: 5px;
+  color: #f4dfb7;
+}
+
+/* SECTIONS */
+
+.section {
+  padding: 80px 25px;
+  text-align: center;
+}
+
+.gold-title {
+  color: var(--gold);
+  font-size: 12px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  margin-bottom: 25px;
+}
+
+.section h2 {
+  font-weight: normal;
+  font-size: clamp(30px, 6vw, 43px);
+  color: #9c8051;
+  margin-bottom: 25px;
+}
+
+.description {
+  max-width: 580px;
+  margin: auto;
+  line-height: 1.9;
+  color: #897b66;
+  font-size: 17px;
+}
+
+.decor {
+  font-size: 30px;
+  color: var(--gold);
+  margin: 30px 0;
+}
+
+/* PHOTO */
+
+.photo-section {
+  padding: 0 25px 75px;
+  text-align: center;
+}
+
+.photo-frame {
+  max-width: 600px;
+  margin: auto;
+  padding: 9px;
+  background: white;
+  box-shadow: 0 10px 35px #8c79522b;
+}
+
+.photo-frame img {
+  width: 100%;
+  display: block;
+}
+
+.photo-caption {
+  margin-top: 20px;
+  font-style: italic;
+  color: var(--gold);
+  font-size: 18px;
+}
+
+/* DETAILS */
+
+.details {
+  background: #f5efe5;
+}
+
+.details-grid {
+  max-width: 600px;
+  margin: 40px auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: #dfd0b1;
+  border: 1px solid #dfd0b1;
+}
+
+.detail {
+  background: #fbf8f1;
+  padding: 30px 10px;
+}
+
+.detail small {
+  display: block;
+  color: var(--gold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 13px;
+  font-size: 11px;
+}
+
+.detail strong {
+  font-size: 19px;
+  font-weight: normal;
+  color: #796747;
+}
+
+.hosts {
+  margin-top: 35px;
+  font-size: 22px;
+  color: #9c8051;
+  font-style: italic;
+}
+
+/* FOOTER */
+
+footer {
+  padding: 75px 20px;
+  text-align: center;
+  background: #f5efe5;
+}
+
+footer h2 {
+  font-size: 43px;
+  font-weight: normal;
+  color: var(--gold);
+  margin: 20px 0;
+}
+
+footer p {
+  color: #8b7c68;
+  line-height: 1.8;
+}
+
+/* MOBILE */
+
+@media(max-width: 550px) {
+  .hero {
+    height: 650px;
+  }
+
+  .section {
+    padding: 60px 20px;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .detail strong {
+    font-size: 16px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- OPENING ENVELOPE -->
+
+<div id="intro">
+  <div class="intro-content">
+
+    <div class="intro-title"
+      data-ru="СВАДЕБНОЕ ПРИГЛАШЕНИЕ"
+      data-ky="ҮЙЛӨНҮҮ ТОЮНА ЧАКЫРУУ">
+      СВАДЕБНОЕ ПРИГЛАШЕНИЕ
+    </div>
+
+    <div class="envelope" id="envelope">
+      <div class="env-back"></div>
+
+      <div class="env-paper">
+        A &amp; A
+      </div>
+
+      <div class="env-front"></div>
+      <div class="env-flap"></div>
+
+      <div class="seal">A</div>
+    </div>
+
+    <button class="open-button" id="openButton"
+      data-ru="Открыть приглашение"
+      data-ky="Чакыруу барагын ачуу">
+      Открыть приглашение
+    </button>
+
+  </div>
+</div>
+
+<!-- LANGUAGE -->
+
+<div class="language">
+  <button class="active" data-lang="ru">RU</button>
+  <button data-lang="ky">KG</button>
+</div>
+
+<!-- MUSIC -->
+
+<button class="music" id="musicButton">
+  ♫ <span id="musicText">Включить музыку</span>
+</button>
+
+<audio id="weddingMusic" loop preload="auto">
+  <source
+    src="assets/mot-svadebnaya.mp3"
+    type="audio/mpeg">
+</audio>
+
+<main>
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="hero-content">
+
+    <div class="hero-small"
+      data-ru="День нашей любви"
+      data-ky="Сүйүүбүздүн өзгөчө күнү">
+      День нашей любви
+    </div>
+
+    <h1>Амир &amp; Амина</h1>
+
+    <div class="hero-date">
+      11 · 11 · 2026
+    </div>
+
+  </div>
+
+</section>
+
+<!-- INVITATION -->
+
+<section class="section">
+
+  <div class="gold-title"
+    data-ru="С любовью приглашаем"
+    data-ky="Сүйүү менен чакырабыз">
+    С любовью приглашаем
+  </div>
+
+  <h2
+    data-ru="Разделите с нами этот день"
+    data-ky="Бул күндү биз менен бирге өткөрүңүздөр">
+    Разделите с нами этот день
+  </h2>
+
+  <p class="description"
+    data-ru="В нашей жизни начинается новая прекрасная глава. Мы будем счастливы разделить радость этого события с вами. Приглашаем вас стать частью нашего самого важного дня!"
+    data-ky="Жашообузда жаңы, сонун барак ачылууда. Бул кубанычтуу күнү сиздер менен бирге болсок, абдан бактылуу болобуз. Сиздерди биздин өзгөчө күнүбүзгө чакырабыз!">
+
+    В нашей жизни начинается новая прекрасная глава.
+    Мы будем счастливы разделить радость этого события
+    с вами. Приглашаем вас стать частью нашего
+    самого важного дня!
+
+  </p>
+
+  <div class="decor">✧ ❦ ✧</div>
+
+</section>
+
+<!-- RING PHOTO -->
+
+<section class="photo-section">
+
+  <div class="photo-frame">
+
+    <img
+      src="assets/ring-moment.jpg"
+      alt="Момент с обручальным кольцом">
+
+  </div>
+
+  <div class="photo-caption"
+    data-ru="И начинается наша вечная история..."
+    data-ky="Биздин түбөлүк баяныбыз башталат...">
+
+    И начинается наша вечная история...
+
+  </div>
+
+</section>
+
+<!-- WEDDING DETAILS -->
+
+<section class="section details">
+
+  <div class="gold-title"
+    data-ru="Сохраните дату"
+    data-ky="Бул күндү белгилеп коюңуздар">
+    Сохраните дату
+  </div>
+
+  <h2
+    data-ru="Будем ждать вас"
+    data-ky="Сиздерди күтөбүз">
+    Будем ждать вас
+  </h2>
+
+  <div class="details-grid">
+
+    <div class="detail">
+      <small data-ru="Дата" data-ky="Күнү">
+        Дата
+      </small>
+      <strong>11 ноября 2026</strong>
+    </div>
+
+    <div class="detail">
+      <small data-ru="Начало" data-ky="Башталышы">
+        Начало
+      </small>
+      <strong>17:00</strong>
+    </div>
+
+    <div class="detail">
+      <small data-ru="Город" data-ky="Шаар">
+        Город
+      </small>
+      <strong>Манас</strong>
+    </div>
+
+    <div class="detail">
+      <small data-ru="Ресторан" data-ky="Ресторан">
+        Ресторан
+      </small>
+      <strong>Ала-Тоо</strong>
+    </div>
+
+  </div>
+
+  <div class="hosts"
+    data-ru="С уважением, Марсель и Малика"
+    data-ky="Урматтоо менен, Марсель жана Малика">
+
+    С уважением, Марсель и Малика
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="gold-title"
+    data-ru="До встречи на нашей свадьбе"
+    data-ky="Тойдо жолугушканча">
+    До встречи на нашей свадьбе
+  </div>
+
+  <h2>Амир &amp; Амина</h2>
+
+  <p
+    data-ru="Спасибо, что разделите с нами этот счастливый день."
+    data-ky="Бул бактылуу күнүбүздү биз менен бөлүшкөнүңүздөр үчүн рахмат.">
+
+    Спасибо, что разделите с нами этот счастливый день.
+
+  </p>
+
+  <div class="decor">❦</div>
+
+  <p>11.11.2026</p>
+
+</footer>
+
+</main>
+
+<script>
+
+/* OPEN ENVELOPE */
+
+const intro = document.getElementById("intro");
+const envelope = document.getElementById("envelope");
+const openButton = document.getElementById("openButton");
+
+const audio = document.getElementById("weddingMusic");
+const musicText = document.getElementById("musicText");
+
+let opened = false;
+let currentLang = "ru";
+
+function openInvitation() {
+
+  if (opened) return;
+
+  opened = true;
+
+  envelope.classList.add("open");
+
+  audio.play().then(() => {
+    updateMusicText();
+  }).catch(() => {
+    musicText.textContent = "Включить музыку";
+  });
+
+  setTimeout(() => {
+    intro.classList.add("hide");
+  }, 1200);
+
+}
+
+openButton.addEventListener("click", openInvitation);
+envelope.addEventListener("click", openInvitation);
+
+/* MUSIC BUTTON */
+
+function updateMusicText() {
+
+  if (currentLang === "ru") {
+    musicText.textContent =
+      audio.paused ? "Включить музыку" : "Выключить музыку";
+  } else {
+    musicText.textContent =
+      audio.paused ? "Музыканы күйгүзүү" : "Музыканы өчүрүү";
+  }
+
+}
+
+document.getElementById("musicButton")
+  .addEventListener("click", () => {
+
+    if (audio.paused) {
+      audio.play().then(updateMusicText).catch(() => {});
+    } else {
+      audio.pause();
+      updateMusicText();
+    }
+
+  });
+
+/* LANGUAGE SWITCH */
+
+document.querySelectorAll("[data-lang]")
+  .forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      currentLang = button.dataset.lang;
+
+      document.documentElement.lang = currentLang;
+
+      document.querySelectorAll("[data-ru]")
+        .forEach(element => {
+
+          element.textContent =
+            element.dataset[currentLang];
+
+        });
+
+      document.querySelectorAll("[data-lang]")
+        .forEach(item => {
+
+          item.classList.toggle(
+            "active",
+            item === button
+          );
+
+        });
+
+      updateMusicText();
+
+    });
+
+  });
+
+</script>
+
+</body>
+</html>
